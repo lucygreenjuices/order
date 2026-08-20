@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucy Green Juices — Order</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&family=Cormorant+Garamond:ital@1&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a08;--panel:#14120c;--cream:#f5efe4;--gold:#c9a961;--goldl:#e6d49a;--dgold:#a8893f;--err:#e07a6a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--cream);font-family:'Inter',sans-serif;line-height:1.6;}
+.wrap{max-width:560px;margin:0 auto;padding:36px 18px 120px;}
+.kicker{text-align:center;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:700;padding-left:.34em;}
+h1{text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:46px;margin:6px 0 2px;}
+.hm{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:17px;}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0 6px;}
+.orn i{width:44px;height:1px;background:var(--gold);}
+.orn b{color:var(--gold);font-size:12px;}
+.tag{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--goldl);margin-bottom:18px;}
+/* EDIT WEEKLY: update this banner text with the current week's windows */
+.week{background:var(--panel);border:1px solid rgba(201,169,97,.35);border-radius:8px;padding:14px 16px;text-align:center;font-size:13.5px;margin-bottom:26px;}
+.week b{color:var(--goldl);}
+.card{background:var(--panel);border:1px solid rgba(201,169,97,.25);border-radius:10px;padding:22px 18px;margin-bottom:18px;}
+.card h2{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:22px;margin-bottom:4px;}
+.card .sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--goldl);font-size:15.5px;margin-bottom:14px;}
+label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:12px 0 6px;}
+input[type=text],input[type=tel],select,textarea{width:100%;background:#0e0c08;border:1px solid rgba(201,169,97,.35);border-radius:6px;color:var(--cream);padding:12px;font-size:16px;font-family:'Inter',sans-serif;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
+.opt{display:flex;align-items:center;gap:12px;background:#0e0c08;border:1.5px solid rgba(201,169,97,.3);border-radius:8px;padding:14px;margin-bottom:10px;cursor:pointer;transition:.15s;}
+.opt.sel{border-color:var(--gold);background:#171307;}
+.opt .big{font-weight:700;font-size:15.5px;}
+.opt .small{font-size:13px;opacity:.8;}
+.opt .price{margin-left:auto;color:var(--goldl);font-weight:700;font-size:15px;white-space:nowrap;}
+.opt .save{display:block;font-size:11px;color:var(--gold);font-weight:600;text-align:right;}
+.flav{display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,169,97,.15);padding:13px 2px;}
+.flav:last-child{border-bottom:none;}
+.stripe{width:5px;align-self:stretch;border-radius:3px;flex-shrink:0;}
+.flav .info{flex:1;min-width:0;}
+.flav .nm{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;}
+.flav .ts{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13.5px;color:var(--goldl);}
+.flav .ing{font-size:11px;color:var(--gold);letter-spacing:.03em;}
+.step{display:flex;align-items:center;gap:10px;}
+.step button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold);background:none;color:var(--gold);font-size:19px;cursor:pointer;line-height:1;}
+.step button:disabled{opacity:.25;cursor:default;}
+.step .n{min-width:20px;text-align:center;font-weight:700;font-size:16px;}
+.msg{color:var(--err);font-size:13px;margin-top:8px;display:none;}
+.sumbar{position:fixed;bottom:0;left:0;right:0;background:#0e0c08;border-top:1.5px solid var(--gold);padding:12px 18px;display:flex;align-items:center;gap:14px;z-index:9;}
+.sumbar .t{font-size:12.5px;line-height:1.45;}
+.sumbar .amt{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:var(--goldl);margin-left:auto;}
+.pay .opt .big{font-size:15px;}
+.paylink{margin-left:auto;background:var(--gold);color:#0a0a08;font-weight:700;font-size:13px;padding:8px 14px;border-radius:6px;text-decoration:none;white-space:nowrap;}
+.check{display:flex;gap:12px;align-items:flex-start;background:#0e0c08;border:1px solid rgba(201,169,97,.3);border-radius:8px;padding:14px;font-size:13.5px;}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--gold);}
+.submit{width:100%;background:var(--gold);color:#0a0a08;border:none;border-radius:8px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;padding:16px;cursor:pointer;margin-top:6px;}
+.submit:active{transform:scale(.99);}
+.finewrap{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14.5px;color:var(--goldl);opacity:.85;margin-top:14px;line-height:1.6;}
+.success{display:none;text-align:center;padding:60px 10px;}
+.success .st{font-family:'Playfair Display',serif;font-style:italic;font-size:34px;margin:14px 0 8px;}
+.success p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--goldl);}
+.copybtn{margin-top:18px;background:none;border:1.5px solid var(--gold);color:var(--goldl);border-radius:8px;padding:12px 18px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;}
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+<div class="wrap" id="formwrap">
+  <div class="kicker">Cold-Pressed &middot; Made to Order</div>
+  <div class="hm" style="margin-top:14px;">Homemade</div>
+  <h1>Lucy Green</h1>
+  <div class="orn"><i></i><b>&#10038;</b><i></i></div>
+  <div class="kicker" style="letter-spacing:.5em;">Juices</div>
+  <p class="tag">There&rsquo;s grace in every bottle. &middot; Killeen, TX</p>
+
+  <!-- EDIT WEEKLY: current windows -->
+  <div class="week">This week: <b>Pickup Saturday morning</b> (Killeen) &middot; <b>Delivery Sunday afternoon</b> across our cities.<br>Orders close <b>Thursday 8 PM</b> &mdash; we press fresh for you Friday.</div>
+
+  <div class="card">
+    <h2>&#128100; Your Info</h2>
+    <div class="sub">so we know whose bottles these are</div>
+    <label>Full Name *</label><input type="text" id="f_name" autocomplete="name">
+    <label>Phone Number *</label><input type="tel" id="f_phone" autocomplete="tel">
+    <label>Instagram Handle</label><input type="text" id="f_ig" placeholder="optional — so we can tag you &#10038;">
+    <div class="msg" id="m_info">Please add your name and phone number.</div>
+  </div>
+
+  <div class="card">
+    <h2>&#129379; Choose Your Package</h2>
+    <div class="sub">every bottle is 12 oz &middot; one discount per order</div>
+    <div class="opt" data-pkg="1" data-price="10"><div><span class="big">The Single</span><br><span class="small">1 bottle &middot; start with your favorite</span></div><div class="price">$10</div></div>
+    <div class="opt" data-pkg="3" data-price="25"><div><span class="big">The Trio</span><br><span class="small">any 3 bottles</span></div><div class="price">$25<span class="save">save $5</span></div></div>
+    <div class="opt" data-pkg="7" data-price="55"><div><span class="big">The Week of Grace</span><br><span class="small">any 7 &mdash; a bottle for every day</span></div><div class="price">$55<span class="save">save $15</span></div></div>
+    <div class="msg" id="m_pkg">Please choose a package.</div>
+  </div>
+
+  <div class="card">
+    <h2>&#127807; Select Your Flavors</h2>
+    <div class="sub" id="flavsub">choose a package first</div>
+    <div class="flav"><div class="stripe" style="background:#5d7a45"></div><div class="info"><div class="nm">Lucy's Green</div><div class="ts">crisp &amp; garden-fresh &middot; the daily reset</div><div class="ing">spinach &middot; kale &middot; cucumber &middot; apple &middot; parsley &middot; lime &middot; ginger</div></div><div class="step"><button data-f="Lucy's Green" data-d="-1">&minus;</button><span class="n" id="n0">0</span><button data-f="Lucy's Green" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#e6a82a"></div><div class="info"><div class="nm">Lucy's Delight</div><div class="ts">sweet sunny citrus &middot; pure sunshine</div><div class="ing">orange &middot; apple &middot; pineapple &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Lucy's Delight" data-d="-1">&minus;</button><span class="n" id="n1">0</span><button data-f="Lucy's Delight" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#7a3048"></div><div class="info"><div class="nm">Lucy's Berry</div><div class="ts">deep jammy berries &middot; the sweet favorite</div><div class="ing">orange &middot; strawberry &middot; blackberry &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Lucy's Berry" data-d="-1">&minus;</button><span class="n" id="n2">0</span><button data-f="Lucy's Berry" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#d97e2a"></div><div class="info"><div class="nm">The Golden Hour</div><div class="ts">warm &amp; gingery &middot; turmeric's glow</div><div class="ing">carrot &middot; orange &middot; turmeric &middot; ginger &middot; lemon</div></div><div class="step"><button data-f="The Golden Hour" data-d="-1">&minus;</button><span class="n" id="n3">0</span><button data-f="The Golden Hour" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#e6c34a"></div><div class="info"><div class="nm">Pineapple Grace</div><div class="ts">cool tropical sweetness &middot; the unexpected one</div><div class="ing">pineapple &middot; apple &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Pineapple Grace" data-d="-1">&minus;</button><span class="n" id="n4">0</span><button data-f="Pineapple Grace" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#e02a50"></div><div class="info"><div class="nm">Ruby Rose</div><div class="ts">watermelon silk, beet-deep blush &middot; the showstopper</div><div class="ing">watermelon &middot; beets &middot; lemon</div></div><div class="step"><button data-f="Ruby Rose" data-d="-1">&minus;</button><span class="n" id="n5">0</span><button data-f="Ruby Rose" data-d="1">+</button></div></div>
+    <div class="msg" id="m_flav">Please select bottles to match your package.</div>
+  </div>
+
+  <div class="card">
+    <h2>&#128205; Pickup or Delivery</h2>
+    <div class="sub">both free &middot; we confirm your exact window by text</div>
+    <div class="opt" data-ful="Pickup"><div><span class="big">Pickup &mdash; Killeen</span><br><span class="small">exact address shared after payment is confirmed</span></div></div>
+    <div class="opt" data-ful="Delivery"><div><span class="big">Delivery</span><br><span class="small">Killeen &middot; Fort Hood &middot; Harker Heights &middot; Nolanville &middot; Belton &middot; Copperas Cove</span></div></div>
+    <div id="delfields" class="hidden">
+      <label>Delivery City *</label>
+      <select id="f_city"><option value="">Choose your city&hellip;</option><option>Killeen</option><option>Fort Hood</option><option>Harker Heights</option><option>Nolanville</option><option>Belton</option><option>Copperas Cove</option></select>
+      <label>Street Address *</label><input type="text" id="f_addr" autocomplete="street-address">
+    </div>
+    <div class="msg" id="m_ful">Please choose pickup or delivery (and your address if delivering).</div>
+  </div>
+
+  <div class="card pay">
+    <h2>&#128179; Payment Method</h2>
+    <div class="sub">payment confirms your order &mdash; production starts once funds are received</div>
+    <!-- EDIT: replace homemadelucygreenju with your real Cash App tag (no $) -->
+    <div class="opt" data-pay="Cash App"><div><span class="big">&#128154; Cash App</span><br><span class="small">$homemadelucygreenju</span></div><a class="paylink" href="https://cash.app/$homemadelucygreenju" target="_blank" rel="noopener">Pay &rarr;</a></div>
+    <div class="opt" data-pay="Zelle"><div><span class="big">&#128156; Zelle</span><br><span class="small">we&rsquo;ll text you our Zelle info with your confirmation</span></div></div>
+    <div class="opt" data-pay="Square (card)"><div><span class="big">&#128155; Card &middot; Square</span><br><span class="small">secure online checkout</span></div><a class="paylink" href="https://lucygreenjuices.square.site" target="_blank" rel="noopener">Pay &rarr;</a></div>
+    <div class="msg" id="m_pay">Please choose how you&rsquo;ll pay.</div>
+  </div>
+
+  <div class="card">
+    <h2>&#128221; Allergies &amp; Notes</h2>
+    <textarea id="f_notes" rows="3" placeholder="anything we should know?"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Order Policy</h2>
+    <div class="check"><input type="checkbox" id="f_agree"><span>All orders are paid in full at the time of ordering &mdash; <b>juice production starts once funds are received.</b> Please meet us during your confirmed pickup or delivery window; unclaimed orders can&rsquo;t be refunded, because every bottle was pressed fresh just for you.</span></div>
+    <div class="msg" id="m_agree">Please review and accept the order policy.</div>
+  </div>
+
+  <button class="submit" id="go">Complete Order &rarr;</button>
+  <div class="finewrap">You&rsquo;ll get a confirmation text with your window &amp; details.<br>&#10038; From my family to yours.</div>
+</div>
+
+<div class="sumbar" id="sumbar">
+  <div class="t"><b id="s_pkg">No package</b><br><span id="s_cnt">0 bottles selected</span></div>
+  <div class="amt" id="s_amt">$0</div>
+</div>
+
+<div class="wrap success" id="success">
+  <div class="orn"><i></i><b>&#10038;</b><i></i></div>
+  <div class="st">Order received!</div>
+  <p>Thank you! Watch your texts &mdash; your confirmation and details are on the way.</p>
+  <p style="margin-top:10px;">There&rsquo;s grace in every bottle.</p>
+  <button class="copybtn" id="copy2">Copy my order summary</button>
+</div>
+
+<script>
+var pkg=0,price=0,counts={},ful='',pay='';
+var flavors=["Lucy's Green","Lucy's Delight","Lucy's Berry","The Golden Hour","Pineapple Grace","Ruby Rose"];
+flavors.forEach(function(f){counts[f]=0;});
+function total(){return flavors.reduce(function(a,f){return a+counts[f];},0);}
+function refresh(){
+  document.getElementById('s_pkg').textContent = pkg? (pkg==1?'The Single':pkg==3?'The Trio':'The Week of Grace') : 'No package';
+  document.getElementById('s_cnt').textContent = total()+ (pkg? ' of '+pkg:'')+' bottles selected';
+  document.getElementById('s_amt').textContent = '$'+price;
+  document.getElementById('flavsub').textContent = pkg? ('choose '+pkg+' bottle'+(pkg>1?'s':'')+' — any mix you like') : 'choose a package first';
+  document.querySelectorAll('.step button').forEach(function(b){
+    var f=b.getAttribute('data-f'), d=+b.getAttribute('data-d');
+    b.disabled = !pkg || (d>0 && total()>=pkg) || (d<0 && counts[f]<=0);
+  });
+  flavors.forEach(function(f,i){document.getElementById('n'+i).textContent=counts[f];});
+}
+document.querySelectorAll('[data-pkg]').forEach(function(o){
+  o.addEventListener('click',function(){
+    document.querySelectorAll('[data-pkg]').forEach(function(x){x.classList.remove('sel');});
+    o.classList.add('sel'); pkg=+o.getAttribute('data-pkg'); price=+o.getAttribute('data-price');
+    flavors.forEach(function(f){counts[f]=0;}); refresh();
+  });
+});
+document.querySelectorAll('.step button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var f=b.getAttribute('data-f'), d=+b.getAttribute('data-d');
+    if(!pkg) return;
+    if(d>0 && total()<pkg) counts[f]++;
+    if(d<0 && counts[f]>0) counts[f]--;
+    refresh();
+  });
+});
+document.querySelectorAll('[data-ful]').forEach(function(o){
+  o.addEventListener('click',function(){
+    document.querySelectorAll('[data-ful]').forEach(function(x){x.classList.remove('sel');});
+    o.classList.add('sel'); ful=o.getAttribute('data-ful');
+    document.getElementById('delfields').classList.toggle('hidden', ful!=='Delivery');
+  });
+});
+document.querySelectorAll('[data-pay]').forEach(function(o){
+  o.addEventListener('click',function(e){
+    if(e.target.classList.contains('paylink')) return;
+    document.querySelectorAll('[data-pay]').forEach(function(x){x.classList.remove('sel');});
+    o.classList.add('sel'); pay=o.getAttribute('data-pay');
+  });
+});
+function summary(){
+  var lines=flavors.filter(function(f){return counts[f]>0;}).map(function(f){return counts[f]+'x '+f;}).join(', ');
+  return 'LUCY GREEN ORDER\n'
+   +'Name: '+v('f_name')+'\nPhone: '+v('f_phone')+'\nIG: '+v('f_ig')
+   +'\nPackage: '+document.getElementById('s_pkg').textContent+' — $'+price
+   +'\nBottles: '+lines
+   +'\nFulfillment: '+ful+(ful==='Delivery'? (' — '+v('f_city')+', '+v('f_addr')):'')
+   +'\nPayment: '+pay
+   +'\nNotes: '+v('f_notes');
+}
+function v(id){return document.getElementById(id).value.trim();}
+function show(id,on){document.getElementById(id).style.display=on?'block':'none';}
+document.getElementById('go').addEventListener('click',function(){
+  var ok=true;
+  var infoOk = v('f_name') && v('f_phone'); show('m_info',!infoOk); ok=ok&&infoOk;
+  show('m_pkg',!pkg); ok=ok&&!!pkg;
+  var flavOk = pkg && total()===pkg; show('m_flav',!flavOk); ok=ok&&flavOk;
+  var fulOk = ful==='Pickup' || (ful==='Delivery' && v('f_city') && v('f_addr')); show('m_ful',!fulOk); ok=ok&&fulOk;
+  show('m_pay',!pay); ok=ok&&!!pay;
+  var ag=document.getElementById('f_agree').checked; show('m_agree',!ag); ok=ok&&ag;
+  if(!ok){window.scrollTo({top:0,behavior:'smooth'});return;}
+  var btn=this; btn.textContent='Sending…'; btn.disabled=true;
+  /* EDIT: create a free form at formspree.io and replace mqpznead below */
+  fetch('https://formspree.io/f/mqpznead',{
+    method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({order:summary(),_subject:'New Lucy Green order — '+v('f_name')})
+  }).then(function(r){
+    if(r.ok){finish();}else{fallback(btn);}
+  }).catch(function(){fallback(btn);});
+});
+function finish(){
+  document.getElementById('formwrap').style.display='none';
+  document.getElementById('sumbar').style.display='none';
+  document.getElementById('success').style.display='block';
+  window.scrollTo(0,0);
+}
+function fallback(btn){
+  btn.disabled=false; btn.textContent='Complete Order →';
+  try{navigator.clipboard.writeText(summary());}catch(e){}
+  alert('Almost there! We could not auto-send just now — your order summary was copied. Please paste it in a DM to @lucygreenjuices and we will confirm right away.');
+}
+document.getElementById('copy2').addEventListener('click',function(){
+  try{navigator.clipboard.writeText(summary());this.textContent='Copied ✓';}catch(e){}
+});
+refresh();
+</script>
+</body>
+</html>
