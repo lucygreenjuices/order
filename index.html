@@ -27,7 +27,8 @@ label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase
 input[type=text],input[type=tel],select,textarea{width:100%;background:#0e0c08;border:1px solid rgba(201,169,97,.35);border-radius:6px;color:var(--cream);padding:12px;font-size:16px;font-family:'Inter',sans-serif;}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
 .opt{display:flex;align-items:center;gap:12px;background:#0e0c08;border:1.5px solid rgba(201,169,97,.3);border-radius:8px;padding:14px;margin-bottom:10px;cursor:pointer;transition:.15s;}
-.opt.sel{border-color:var(--gold);background:#171307;}
+.opt.sel,.opt[aria-checked="true"]{border-color:var(--gold);background:#171307;}
+.opt:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--goldl);outline-offset:2px;}
 .opt .big{font-weight:700;font-size:15.5px;}
 .opt .small{font-size:13px;opacity:.8;}
 .opt .price{margin-left:auto;color:var(--goldl);font-weight:700;font-size:15px;white-space:nowrap;}
@@ -72,75 +73,79 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
 
   <!-- EDIT WEEKLY: current windows -->
   <div class="week">Every week: <b>Saturday Pickup (Killeen) 7a&ndash;12p</b> &middot; <b>Saturday Delivery (selected cities) 1p&ndash;5p</b><br>Orders close <b>Thursday at 8p</b> &mdash; we press fresh for you Friday.</div>
+  <!-- EVENT WEEK BANNER: when you're on the road, wrap the banner ABOVE in comment marks and unwrap this one, then fill in the [brackets]. Swap back after the event. -->
+  <!--
+  <div class="week">&#128739;&#65039; <b>The cafe is traveling!</b> Catch us at [EVENT NAME] in [CITY] this weekend.<br>Home pickup &amp; delivery return <b>Saturday, [DATE]</b> &mdash; order anytime and we&rsquo;ll press fresh for that window. &#10038;</div>
+  -->
 
   <div class="card">
-    <h2>&#128100; Your Info</h2>
+    <h2><span aria-hidden="true">&#128100;</span> Your Info</h2>
     <div class="sub">so we know whose bottles these are</div>
-    <label>Full Name *</label><input type="text" id="f_name" autocomplete="name">
-    <label>Phone Number *</label><input type="tel" id="f_phone" autocomplete="tel">
-    <label>Instagram Handle</label><input type="text" id="f_ig" placeholder="optional — so we can tag you &#10038;">
-    <div class="msg" id="m_info">Please add your name and phone number.</div>
+    <label for="f_name">Full Name *</label><input type="text" id="f_name" autocomplete="name">
+    <label for="f_phone">Phone Number *</label><input type="tel" id="f_phone" autocomplete="tel">
+    <label for="f_ig">Instagram Handle</label><input type="text" id="f_ig" placeholder="optional — so we can tag you &#10038;">
+    <div class="msg" role="alert" id="m_info">Please add your name and phone number.</div>
   </div>
 
   <div class="card">
-    <h2>&#129379; Choose Your Package</h2>
-    <div class="sub">every bottle is 12 oz &middot; one discount per order</div>
-    <div class="opt" data-pkg="1" data-price="10"><div><span class="big">The Single</span><br><span class="small">1 bottle &middot; start with your favorite</span></div><div class="price">$10</div></div>
-    <div class="opt" data-pkg="3" data-price="25"><div><span class="big">The Trio</span><br><span class="small">any 3 bottles</span></div><div class="price">$25<span class="save">save $5</span></div></div>
-    <div class="opt" data-pkg="7" data-price="55"><div><span class="big">The Week of Grace</span><br><span class="small">any 7 &mdash; a bottle for every day</span></div><div class="price">$55<span class="save">save $15</span></div></div>
-    <div class="msg" id="m_pkg">Please choose a package.</div>
+    <h2><span aria-hidden="true">&#129379;</span> Choose Your Package</h2>
+    <div class="sub">every bottle is 12 oz &middot; one discount per order</div><div role="radiogroup" aria-label="Choose your package">
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pkg="1" data-price="10"><div><span class="big">The Single</span><br><span class="small">1 bottle &middot; start with your favorite</span></div><div class="price">$10</div></div>
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pkg="3" data-price="25"><div><span class="big">Bundle</span><br><span class="small">any 3 bottles</span></div><div class="price">$25<span class="save">save $5</span></div></div>
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pkg="7" data-price="55"><div><span class="big">The Week of Grace</span><br><span class="small">any 7 &mdash; a bottle for every day</span></div><div class="price">$55<span class="save">save $15</span></div></div>
+    </div><div class="msg" role="alert" id="m_pkg">Please choose a package.</div>
   </div>
 
   <div class="card">
-    <h2>&#127807; Select Your Flavors</h2>
+    <h2><span aria-hidden="true">&#127807;</span> Select Your Flavors <span style="font-family:Inter,sans-serif;font-style:normal;font-size:11px;letter-spacing:.14em;color:#c9a961;vertical-align:middle;">THE FALL LINEUP</span></h2>
     <div class="sub" id="flavsub">choose a package first</div>
     <div class="flav"><div class="stripe" style="background:#5d7a45"></div><div class="info"><div class="nm">Lucy's Green</div><div class="ts">crisp &amp; garden-fresh &middot; the daily reset</div><div class="ing">spinach &middot; kale &middot; cucumber &middot; apple &middot; parsley &middot; lime &middot; ginger</div></div><div class="step"><button data-f="Lucy's Green" data-d="-1">&minus;</button><span class="n" id="n0">0</span><button data-f="Lucy's Green" data-d="1">+</button></div></div>
-    <div class="flav"><div class="stripe" style="background:#e6a82a"></div><div class="info"><div class="nm">Lucy's Delight</div><div class="ts">sweet sunny citrus &middot; pure sunshine</div><div class="ing">orange &middot; apple &middot; pineapple &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Lucy's Delight" data-d="-1">&minus;</button><span class="n" id="n1">0</span><button data-f="Lucy's Delight" data-d="1">+</button></div></div>
-    <div class="flav"><div class="stripe" style="background:#7a3048"></div><div class="info"><div class="nm">Lucy's Berry</div><div class="ts">deep jammy berries &middot; the sweet favorite</div><div class="ing">orange &middot; strawberry &middot; blackberry &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Lucy's Berry" data-d="-1">&minus;</button><span class="n" id="n2">0</span><button data-f="Lucy's Berry" data-d="1">+</button></div></div>
-    <div class="flav"><div class="stripe" style="background:#d97e2a"></div><div class="info"><div class="nm">The Golden Hour</div><div class="ts">warm &amp; gingery &middot; turmeric's glow</div><div class="ing">carrot &middot; orange &middot; turmeric &middot; ginger &middot; lemon</div></div><div class="step"><button data-f="The Golden Hour" data-d="-1">&minus;</button><span class="n" id="n3">0</span><button data-f="The Golden Hour" data-d="1">+</button></div></div>
-    <div class="flav"><div class="stripe" style="background:#e6c34a"></div><div class="info"><div class="nm">Pineapple Grace</div><div class="ts">cool tropical sweetness &middot; the unexpected one</div><div class="ing">pineapple &middot; apple &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Pineapple Grace" data-d="-1">&minus;</button><span class="n" id="n4">0</span><button data-f="Pineapple Grace" data-d="1">+</button></div></div>
-    <div class="flav"><div class="stripe" style="background:#e02a50"></div><div class="info"><div class="nm">Ruby Rose</div><div class="ts">watermelon silk, beet-deep blush &middot; the showstopper</div><div class="ing">watermelon &middot; beets &middot; lemon</div></div><div class="step"><button data-f="Ruby Rose" data-d="-1">&minus;</button><span class="n" id="n5">0</span><button data-f="Ruby Rose" data-d="1">+</button></div></div>
-    <div class="msg" id="m_flav">Please select bottles to match your package.</div>
+    <div class="flav"><div class="stripe" style="background:#e6c34a"></div><div class="info"><div class="nm">Pineapple Grace</div><div class="ts">cool tropical sweetness, a whisper of basil &middot; the unexpected one</div><div class="ing">pineapple &middot; apple &middot; lemon &middot; ginger &middot; basil</div></div><div class="step"><button data-f="Pineapple Grace" data-d="-1">&minus;</button><span class="n" id="n1">0</span><button data-f="Pineapple Grace" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#a4304c"></div><div class="info"><div class="nm">Lucy's Autumn</div><div class="ts">earthy, sweet &amp; rooted &middot; fall in a bottle</div><div class="ing">apple &middot; beets &middot; carrots &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Lucy's Autumn" data-d="-1">&minus;</button><span class="n" id="n2">0</span><button data-f="Lucy's Autumn" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#7a4aa8"></div><div class="info"><div class="nm">The Violet Hour</div><div class="ts">jewel-toned &amp; bright, with a ginger edge &middot; the showstopper</div><div class="ing">purple cabbage &middot; apple &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="The Violet Hour" data-d="-1">&minus;</button><span class="n" id="n3">0</span><button data-f="The Violet Hour" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#8fbf62"></div><div class="info"><div class="nm">Matcha Mint Grace</div><div class="ts">bright, cool &amp; quietly energizing &middot; the morning one</div><div class="ing">pineapple &middot; lemon &middot; mint &middot; matcha</div></div><div class="step"><button data-f="Matcha Mint Grace" data-d="-1">&minus;</button><span class="n" id="n4">0</span><button data-f="Matcha Mint Grace" data-d="1">+</button></div></div>
+    <div class="flav"><div class="stripe" style="background:#d98a3a"></div><div class="info"><div class="nm">Southern Grace</div><div class="ts">warm sweet potato &amp; cinnamon, brightened with lemon &middot; comfort, cold-pressed</div><div class="ing">sweet potato &middot; apple &middot; cinnamon &middot; lemon &middot; ginger</div></div><div class="step"><button data-f="Southern Grace" data-d="-1">&minus;</button><span class="n" id="n5">0</span><button data-f="Southern Grace" data-d="1">+</button></div></div>
+    <div class="msg" role="alert" id="m_flav">Please select bottles to match your package.</div>
   </div>
 
   <div class="card">
-    <h2>&#128205; Pickup or Delivery</h2>
-    <div class="sub">both free &middot; we confirm your exact window by text</div>
-    <div class="opt" data-ful="Pickup"><div><span class="big">Pickup &mdash; Killeen</span><br><span class="small">exact address shared after payment is confirmed</span></div></div>
-    <div class="opt" data-ful="Delivery"><div><span class="big">Delivery</span><br><span class="small">Killeen &middot; Fort Hood &middot; Harker Heights &middot; Nolanville &middot; Belton &middot; Copperas Cove</span></div></div>
-    <div id="delfields" class="hidden">
-      <label>Delivery City *</label>
+    <h2><span aria-hidden="true">&#128205;</span> Pickup or Delivery</h2>
+    <div class="sub">both free &middot; we confirm your exact window by text</div><div role="radiogroup" aria-label="Pickup or delivery">
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-ful="Pickup"><div><span class="big">Pickup &mdash; Killeen</span><br><span class="small">exact address shared after payment is confirmed</span></div></div>
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-ful="Delivery"><div><span class="big">Delivery</span><br><span class="small">Killeen &middot; Fort Hood &middot; Harker Heights &middot; Nolanville &middot; Belton &middot; Copperas Cove</span></div></div>
+    </div><div id="delfields" class="hidden">
+      <label for="f_city">Delivery City *</label>
       <select id="f_city"><option value="">Choose your city&hellip;</option><option>Killeen</option><option>Fort Hood</option><option>Harker Heights</option><option>Nolanville</option><option>Belton</option><option>Copperas Cove</option></select>
-      <label>Street Address *</label><input type="text" id="f_addr" autocomplete="street-address">
+      <label for="f_addr">Street Address *</label><input type="text" id="f_addr" autocomplete="street-address">
     </div>
-    <div class="msg" id="m_ful">Please choose pickup or delivery (and your address if delivering).</div>
+    <div class="msg" role="alert" id="m_ful">Please choose pickup or delivery (and your address if delivering).</div>
   </div>
 
   <div class="card pay">
-    <h2>&#128179; Payment Method</h2>
-    <div class="sub">pick your method &mdash; we&rsquo;ll text you the payment details right after you order</div>
-    <div class="opt" data-pay="Cash App"><div><span class="big">&#128154; Cash App</span><br><span class="small">we&rsquo;ll text you our Cash App info with your confirmation</span></div></div>
-    <div class="opt" data-pay="Zelle"><div><span class="big">&#128156; Zelle</span><br><span class="small">we&rsquo;ll text you our Zelle info with your confirmation</span></div></div>
-    <div class="opt" data-pay="Card (Square invoice)"><div><span class="big">&#128179; Card</span><br><span class="small">we&rsquo;ll text you a secure Square payment link for your exact total</span></div></div>
-    <div class="msg" id="m_pay">Please choose how you&rsquo;ll pay.</div>
+    <h2><span aria-hidden="true">&#128179;</span> Payment Method</h2>
+    <div class="sub">pick your method &mdash; we&rsquo;ll text you the payment details right after you order</div><div role="radiogroup" aria-label="Payment method">
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pay="Cash App"><div><span class="big">&#128154; Cash App</span><br><span class="small">we&rsquo;ll text you our Cash App info with your confirmation</span></div></div>
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pay="Zelle"><div><span class="big">&#128156; Zelle</span><br><span class="small">we&rsquo;ll text you our Zelle info with your confirmation</span></div></div>
+    <div class="opt" role="radio" tabindex="0" aria-checked="false" data-pay="Card (Square invoice)"><div><span class="big">&#128179; Card</span><br><span class="small">we&rsquo;ll text you a secure Square payment link for your exact total</span></div></div>
+    </div><div class="msg" role="alert" id="m_pay">Please choose how you&rsquo;ll pay.</div>
   </div>
 
   <div class="card">
-    <h2>&#128221; Allergies &amp; Notes</h2>
-    <textarea id="f_notes" rows="3" placeholder="anything we should know?"></textarea>
+    <h2><span aria-hidden="true">&#128221;</span> Allergies &amp; Notes</h2>
+    <textarea id="f_notes" aria-label="Allergies and notes" rows="3" placeholder="anything we should know?"></textarea>
   </div>
 
   <div class="card">
-    <h2>&#128203; Order Policy</h2>
+    <h2><span aria-hidden="true">&#128203;</span> Order Policy</h2>
     <div class="check"><input type="checkbox" id="f_agree"><span>All orders are paid in full at the time of ordering &mdash; <b>juice production starts once funds are received.</b> Please meet us during your confirmed pickup or delivery window; unclaimed orders can&rsquo;t be refunded, because every bottle was pressed fresh just for you.</span></div>
-    <div class="msg" id="m_agree">Please review and accept the order policy.</div>
+    <div class="msg" role="alert" id="m_agree">Please review and accept the order policy.</div>
   </div>
 
   <button class="submit" id="go">Complete Order &rarr;</button>
   <div class="finewrap">You&rsquo;ll get a confirmation text with your window &amp; details.<br>&#10038; From my family to yours.</div>
 </div>
 
-<div class="sumbar" id="sumbar">
+<div class="sumbar" id="sumbar" aria-live="polite">
   <div class="t"><b id="s_pkg">No package</b><br><span id="s_cnt">0 bottles selected</span></div>
   <div class="amt" id="s_amt">$0</div>
 </div>
@@ -155,11 +160,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
 
 <script>
 var pkg=0,price=0,counts={},ful='',pay='';
-var flavors=["Lucy's Green","Lucy's Delight","Lucy's Berry","The Golden Hour","Pineapple Grace","Ruby Rose"];
+var flavors=["Lucy's Green","Pineapple Grace","Lucy's Autumn","The Violet Hour","Matcha Mint Grace","Southern Grace"];
 flavors.forEach(function(f){counts[f]=0;});
 function total(){return flavors.reduce(function(a,f){return a+counts[f];},0);}
 function refresh(){
-  document.getElementById('s_pkg').textContent = pkg? (pkg==1?'The Single':pkg==3?'The Trio':'The Week of Grace') : 'No package';
+  document.getElementById('s_pkg').textContent = pkg? (pkg==1?'The Single':pkg==3?'Bundle':'The Week of Grace') : 'No package';
   document.getElementById('s_cnt').textContent = total()+ (pkg? ' of '+pkg:'')+' bottles selected';
   document.getElementById('s_amt').textContent = '$'+price;
   document.getElementById('flavsub').textContent = pkg? ('choose '+pkg+' bottle'+(pkg>1?'s':'')+' — any mix you like') : 'choose a package first';
@@ -172,7 +177,7 @@ function refresh(){
 document.querySelectorAll('[data-pkg]').forEach(function(o){
   o.addEventListener('click',function(){
     document.querySelectorAll('[data-pkg]').forEach(function(x){x.classList.remove('sel');});
-    o.classList.add('sel'); pkg=+o.getAttribute('data-pkg'); price=+o.getAttribute('data-price');
+    o.classList.add('sel'); document.querySelectorAll('[data-pkg]').forEach(function(x){x.setAttribute('aria-checked','false');}); o.setAttribute('aria-checked','true'); pkg=+o.getAttribute('data-pkg'); price=+o.getAttribute('data-price');
     flavors.forEach(function(f){counts[f]=0;}); refresh();
   });
 });
@@ -188,7 +193,7 @@ document.querySelectorAll('.step button').forEach(function(b){
 document.querySelectorAll('[data-ful]').forEach(function(o){
   o.addEventListener('click',function(){
     document.querySelectorAll('[data-ful]').forEach(function(x){x.classList.remove('sel');});
-    o.classList.add('sel'); ful=o.getAttribute('data-ful');
+    o.classList.add('sel'); document.querySelectorAll('[data-ful]').forEach(function(x){x.setAttribute('aria-checked','false');}); o.setAttribute('aria-checked','true'); ful=o.getAttribute('data-ful');
     document.getElementById('delfields').classList.toggle('hidden', ful!=='Delivery');
   });
 });
@@ -196,7 +201,7 @@ document.querySelectorAll('[data-pay]').forEach(function(o){
   o.addEventListener('click',function(e){
     if(e.target.classList.contains('paylink')) return;
     document.querySelectorAll('[data-pay]').forEach(function(x){x.classList.remove('sel');});
-    o.classList.add('sel'); pay=o.getAttribute('data-pay');
+    o.classList.add('sel'); document.querySelectorAll('[data-pay]').forEach(function(x){x.setAttribute('aria-checked','false');}); o.setAttribute('aria-checked','true'); pay=o.getAttribute('data-pay');
   });
 });
 function summary(){
@@ -242,6 +247,15 @@ function fallback(btn){
 }
 document.getElementById('copy2').addEventListener('click',function(){
   try{navigator.clipboard.writeText(summary());this.textContent='Copied ✓';}catch(e){}
+});
+document.querySelectorAll('.opt').forEach(function(o){
+  o.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();o.click();}
+  });
+});
+document.querySelectorAll('.step button').forEach(function(b){
+  var f=b.getAttribute('data-f'), d=b.getAttribute('data-d');
+  b.setAttribute('aria-label',(d==='1'?'Add one bottle of ':'Remove one bottle of ')+f);
 });
 refresh();
 </script>
